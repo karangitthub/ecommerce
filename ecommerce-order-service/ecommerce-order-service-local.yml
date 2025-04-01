@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    username: postgres
+    password: postgres
+#  cloud:
+#    config:
+#      uri: http://config-server:8888
+#      fail-fast: true
+#    loadbalancer:
+#      ribbon:
+#        enabled: false # Ensure Ribbon is disabled if previously used
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
