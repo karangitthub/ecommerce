@@ -5,6 +5,9 @@ spring:
     password: postgres
 
 eureka:
+  instance:
+    hostname: ecommerce-inventory-service
+    prefer-ip-address: false
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
