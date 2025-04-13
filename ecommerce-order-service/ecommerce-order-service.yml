@@ -15,3 +15,26 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000     # → Time (ms) to establish TCP connection
+        readTimeout: 3000        # → Time (ms) to wait for the response
+        loggerLevel: full        # → Log full request & response (useful for debugging)
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryServiceClient:
+        registerHealthIndicator: true   # Lets Spring Boot monitor this circuit breaker’s health
+        slidingWindowSize: 5            #	Looks at last 5 calls to decide status
+        failureRateThreshold: 50        # If >50% of 5 calls fail, circuit opens (fails fast)
+        waitDurationInOpenState: 10s    #	After 10 sec, circuit goes into half-open to test again
+  retry:
+    instances:
+      inventoryServiceClient:
+        maxAttempts: 3                  #	Tries the failed call up to 3 times
+        waitDuration: 2s                # Waits 2 seconds between retries
+
