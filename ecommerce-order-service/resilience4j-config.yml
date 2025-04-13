@@ -1,0 +1,52 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryServiceClient:
+        registerHealthIndicator: true   
+        slidingWindowSize: 5            
+        failureRateThreshold: 50        
+        waitDurationInOpenState: 10s    
+        permittedNumberOfCallsInHalfOpenState: 2    
+        minimumNumberOfCalls: 5         
+  retry:
+    instances:
+      inventoryServiceClient:
+        maxAttempts: 3                  
+        waitDuration: 2s                # Waits 2 seconds between retries
+        retryExceptions:                
+          - java.io.IOException
+          - feign.RetryableException
+          
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true   # Lets Spring Boot monitor this circuit breaker’s health
+        slidingWindowSize: 5            #	Looks at last 5 calls to decide status
+        minimumNumberOfCalls: 5         # minimum number of calls required before Resilience4j starts evaluating failure rate
+        failureRateThreshold: 50        # If >50% of 5 calls fail, circuit opens (fails fast)
+        waitDurationInOpenState: 10s    #	After 10 sec, circuit goes into half-open to test again
+        permittedNumberOfCallsInHalfOpenState: 2    # how many test calls are allowed when the circuit is in HALF-OPEN state
+    instances:
+      productService:
+        baseConfig: default
+      inventoryService:
+        baseConfig: default
+      paymentService:
+        baseConfig: default
+
+  retry:
+    configs:
+      default:
+        maxAttempts: 3                #	Tries the failed call up to 3 times
+        waitDuration: 1s              # Wait time between retry
+        retryExceptions:              # Tells Resilience4j which exceptions to retry on
+          - java.io.IOException
+          - feign.RetryableException
+    instances:
+      productService:
+        baseConfig: default
+      inventoryService:
+        baseConfig: default
+      paymentService:
+        baseConfig: default
