@@ -1,4 +1,7 @@
 spring:
+  config:
+    import:
+      - optional:resilience4j-config.yml
   datasource:
     url: jdbc:postgresql://localhost:5432/ecommerce
     username: postgres
