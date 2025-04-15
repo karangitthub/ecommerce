@@ -34,8 +34,6 @@ resilience4j:
           - feign.RetryableException
           - org.springframework.web.client.HttpServerErrorException
           - java.util.concurrent.TimeoutException
-        ignoreExceptions:  # Don't retry on these
-          - javax.validation.ValidationException
     instances:
       productService:
         baseConfig: default
