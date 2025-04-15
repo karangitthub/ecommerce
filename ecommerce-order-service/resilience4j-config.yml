@@ -26,22 +26,9 @@ resilience4j:
         baseConfig: default
 
   retry:
-    configs:
-      default:
-        maxAttempts: 3
-        waitDuration: 1s
-        retryExceptions:
-          - java.io.IOException
-          - feign.RetryableException
-          - org.springframework.web.client.HttpServerErrorException
-          - java.util.concurrent.TimeoutException
     instances:
       productService:
-        baseConfig: default
-        waitDuration: 2s               # Longer wait for product service
-      inventoryService:
-        baseConfig: default
-      paymentService:
-        baseConfig: default
+        maxAttempts: 3
+        waitDuration: 10s
 
   # Add this to enable event publishing for logging
