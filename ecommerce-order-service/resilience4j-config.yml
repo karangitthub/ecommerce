@@ -17,7 +17,8 @@ resilience4j:
     instances:
       productService:
         baseConfig: default
-        failureRateThreshold: 40        # More strict threshold for product service
+        failureRateThreshold: 40
+        subscribeWithEventConsumer: true        # More strict threshold for product service
       inventoryService:
         baseConfig: default
       paymentService:
@@ -46,7 +47,3 @@ resilience4j:
         baseConfig: default
 
   # Add this to enable event publishing for logging
-  circuitbreaker:
-    instances:
-      productService:
-        subscribeWithEventConsumer: true
