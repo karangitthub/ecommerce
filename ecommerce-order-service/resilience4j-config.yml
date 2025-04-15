@@ -35,7 +35,6 @@ resilience4j:
           - org.springframework.web.client.HttpServerErrorException
           - java.util.concurrent.TimeoutException
         ignoreExceptions:  # Don't retry on these
-          - com.ecommerce.orderservice.exception.ProductServiceUnavailableException
           - javax.validation.ValidationException
     instances:
       productService:
