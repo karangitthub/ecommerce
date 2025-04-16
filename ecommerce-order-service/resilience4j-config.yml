@@ -19,7 +19,7 @@ resilience4j:
       productService:
         baseConfig: default
         failureRateThreshold: 40
-        subscribeWithEventConsumer: true
+        subscribeForEvents: true
       inventoryService:
         baseConfig: default
       paymentService:
@@ -27,13 +27,15 @@ resilience4j:
 
   retry:
     instances:
-      default:
+      productService:
         maxAttempts: 3
-        waitDuration: 5s
+        waitDuration: 10s
         retryExceptions:
           - java.io.IOException
           - feign.RetryableException
-      productService:
-        baseConfig: default
       inventoryService:
-        baseConfig: default
+        maxAttempts: 2
+        waitDuration: 5s
+      paymentService:
+        maxAttempts: 4
+        waitDuration: 3s
