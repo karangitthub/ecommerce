@@ -3,23 +3,25 @@ resilience4j:
     configs:
       default:
         registerHealthIndicator: true
-        slidingWindowSize: 10           # Increased from 5 to 10 for better stability
+        slidingWindowSize: 10
         minimumNumberOfCalls: 5
         failureRateThreshold: 50
-        waitDurationInOpenState: 30s    # Increased from 10s to 30s to give more recovery time
-        permittedNumberOfCallsInHalfOpenState: 3 # Increased from 2 to 3
+        waitDurationInOpenState: 30s
+        permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         recordExceptions:
-          - java.net.UnknownHostException  # Explicitly add this
+          - java.net.UnknownHostException
           - java.io.IOException
           - feign.RetryableException
           - org.springframework.web.client.HttpServerErrorException
           - java.util.concurrent.TimeoutException
+        ignoreExceptions:
+          - com.ecommerce.orderservice.exception.NonRetryableBusinessException
     instances:
       productService:
         baseConfig: default
         failureRateThreshold: 40
-        subscribeWithEventConsumer: true        # More strict threshold for product service
+        subscribeWithEventConsumer: true
       inventoryService:
         baseConfig: default
       paymentService:
@@ -27,8 +29,13 @@ resilience4j:
 
   retry:
     instances:
-      productService:
+      default:
         maxAttempts: 3
-        waitDuration: 10s
-
-  # Add this to enable event publishing for logging
+        waitDuration: 5s
+        retryExceptions:
+          - java.io.IOException
+          - feign.RetryableException
+      productService:
+        baseConfig: default
+      inventoryService:
+        baseConfig: default
