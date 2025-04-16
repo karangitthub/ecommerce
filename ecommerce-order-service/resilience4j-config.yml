@@ -15,27 +15,19 @@ resilience4j:
           - feign.RetryableException
           - org.springframework.web.client.HttpServerErrorException
           - java.util.concurrent.TimeoutException
-    instances:
-      productService:
-        baseConfig: default
-        failureRateThreshold: 40
-        subscribeForEvents: true
-      inventoryService:
-        baseConfig: default
-      paymentService:
-        baseConfig: default
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
 
   retry:
-    instances:
-      productService:
+    configs:
+      default:
         maxAttempts: 3
-        waitDuration: 10s
+        waitDuration: 5s
         retryExceptions:
           - java.io.IOException
           - feign.RetryableException
-      inventoryService:
-        maxAttempts: 2
-        waitDuration: 5s
-      paymentService:
-        maxAttempts: 4
-        waitDuration: 3s
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        subscribeToEvents: true  # 👈 ensures event listeners (like logs) work
