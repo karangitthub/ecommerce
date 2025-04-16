@@ -22,4 +22,4 @@ resilience4j:
     instances:
       productService:
         maxAttempts: 3
-        waitDuration: 5s
+        waitDuration: 1s
