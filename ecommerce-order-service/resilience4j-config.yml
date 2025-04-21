@@ -17,7 +17,6 @@ resilience4j:
           - java.util.concurrent.TimeoutException
         ignoreExceptions:
           - java.lang.IllegalArgumentException
-
   retry:
     instances:
       productService:
