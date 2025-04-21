@@ -17,6 +17,7 @@ resilience4j:
           - java.util.concurrent.TimeoutException
         ignoreExceptions:
           - java.lang.IllegalArgumentException
+          - io.github.resilience4j.circuitbreaker.CallNotPermittedException
 
   retry:
     instances:
