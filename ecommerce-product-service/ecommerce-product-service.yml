@@ -8,7 +8,7 @@ spring:
       ribbon:
         enabled: false # Ensure Ribbon is disabled if previously used
     config:
-      uri: http://localhost:8889 # URL of the Config Server
+      uri: http://localhost:8888 # URL of the Config Server
 
 eureka:
   client:
