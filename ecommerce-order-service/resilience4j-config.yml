@@ -19,8 +19,13 @@ resilience4j:
           - java.lang.IllegalArgumentException
           - feign.FeignException$NotFound
           - feign.FeignException.NotFound
+
   retry:
     configs:
       default:
         maxAttempts: 3
         waitDuration: 1s
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
+          - feign.FeignException$NotFound
+          - feign.FeignException.NotFound
