@@ -18,6 +18,7 @@ resilience4j:
         ignoreExceptions:
           - java.lang.IllegalArgumentException
           - feign.FeignException$NotFound
+          - feign.FeignException.NotFound
   retry:
     configs:
       default:
