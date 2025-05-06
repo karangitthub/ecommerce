@@ -17,6 +17,7 @@ resilience4j:
           - java.util.concurrent.TimeoutException
         ignoreExceptions:
           - java.lang.IllegalArgumentException
+          - feign.FeignException$NotFound
   retry:
     configs:
       default:
