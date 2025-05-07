@@ -25,7 +25,3 @@ resilience4j:
       default:
         maxAttempts: 3
         waitDuration: 1s
-        ignoreExceptions:
-          - java.lang.IllegalArgumentException
-          - feign.FeignException$NotFound
-          - feign.FeignException.NotFound
